@@ -3,10 +3,11 @@ import { useDropzone } from 'react-dropzone'
 import { formatSize } from '~/lib/utils'
 
 interface FileUploaderProps {
+  file?: File | null
   onFileSelect?: (file: File | null) => void
 }
 
-const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
+const FileUploader = ({ file, onFileSelect }: FileUploaderProps) => {
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0] || null
@@ -25,7 +26,7 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
       maxSize: maxFileSize,
     })
 
-  const file = acceptedFiles[0] || null
+  // const file = acceptedFiles[0] || null
 
   return (
     <div className="w-full gradient-border">
@@ -55,6 +56,8 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
                 className="cursor-pointer p-2"
                 onClick={(e) => {
                   onFileSelect?.(null)
+
+                  console.log(file)
                 }}
               >
                 <img
@@ -67,11 +70,7 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
           ) : (
             <div className="">
               <div className="mx-auto w-16 h-16 flex items-center justify-center mb-2">
-                <img
-                  src="/public/icons/info.svg"
-                  alt="upload"
-                  className="size-20"
-                />
+                <img src="/icons/info.svg" alt="upload" className="size-20" />
               </div>
               <p className="text-lg text-gray-500">
                 <span className="font-semibold">Click to upload </span>or drag
